@@ -19,12 +19,9 @@ todoForm.addEventListener(
     showMessage("Successfully added", "success");
 
     // local storage data set
-    let todos = localStorage.getItem("myTodos")
-      ? JSON.parse(localStorage.getItem("myTodos"))
-      : [];
+    let todos = fromLocalStorage();
     todos.push({ inputValue, unqId });
     localStorage.setItem("myTodos", JSON.stringify(todos));
-
     inputTodo.value = "";
   })
 );
@@ -43,6 +40,10 @@ let createTodo = (inputValue, unqId) => {
 
   //   Style add using css class in todo list
   todoElement.classList.add("list-style");
+
+  //   delete todo using button
+  const deleteButton = document.querySelector("#dltBtn");
+  deleteButton.addEventListener("click", deleteTodo);
 };
 
 //todo  create show message
@@ -54,4 +55,19 @@ const showMessage = (toast, status) => {
     message.textContent = "";
     message.classList.remove(`toast-${status}`);
   }, 1000);
+};
+
+//todo get data from local storage
+const fromLocalStorage = () => {
+  return localStorage.getItem("myTodos")
+    ? JSON.parse(localStorage.getItem("myTodos"))
+    : [];
+};
+
+//todo delete todo from list using dlt button
+const deleteTodo = (e) => {
+  const selectedTodo = e.target.parentElement.parentElement.parentElement;
+  let tt = todoList.removeChild(selectedTodo);
+  console.log(tt);
+  showMessage("Deleted Successfully", "danger");
 };
