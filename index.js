@@ -16,7 +16,16 @@ todoForm.addEventListener(
     const unqId = Date.now().toString();
 
     createTodo(inputValue, unqId);
-    showMessage();
+    showMessage("Successfully added", "success");
+
+    // local storage data set
+    let todos = localStorage.getItem("myTodos")
+      ? JSON.parse(localStorage.getItem("myTodos"))
+      : [];
+    todos.push({ inputValue, unqId });
+    localStorage.setItem("myTodos", JSON.stringify(todos));
+
+    inputTodo.value = "";
   })
 );
 
@@ -37,12 +46,12 @@ let createTodo = (inputValue, unqId) => {
 };
 
 //todo  create show message
-const showMessage = () => {
-  message.textContent = "Successfully added";
+const showMessage = (toast, status) => {
+  message.textContent = toast;
   //   Style add using css class in todo list
-  message.classList.add("bg-success");
+  message.classList.add(`toast-${status}`);
   setTimeout(() => {
     message.textContent = "";
-    message.classList.remove("bg-success");
+    message.classList.remove(`toast-${status}`);
   }, 1000);
 };
