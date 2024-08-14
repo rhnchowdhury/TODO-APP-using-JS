@@ -3,6 +3,7 @@ const todoForm = document.querySelector(".todoForm");
 const inputTodo = document.querySelector("#inputTodo");
 const addBtn = document.querySelector("#btn");
 const todoList = document.querySelector("#lists");
+const message = document.querySelector("#toast");
 
 //Todo add
 todoForm.addEventListener(
@@ -15,6 +16,7 @@ todoForm.addEventListener(
     const unqId = Date.now().toString();
 
     createTodo(inputValue, unqId);
+    showMessage();
   })
 );
 
@@ -32,4 +34,15 @@ let createTodo = (inputValue, unqId) => {
 
   //   Style add using css class in todo list
   todoElement.classList.add("list-style");
+};
+
+//todo  create show message
+const showMessage = () => {
+  message.textContent = "Successfully added";
+  //   Style add using css class in todo list
+  message.classList.add("bg-success");
+  setTimeout(() => {
+    message.textContent = "";
+    message.classList.remove("bg-success");
+  }, 1000);
 };

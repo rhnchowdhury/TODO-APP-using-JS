@@ -67,3 +67,10 @@ input {
 .list-style:hover {
   background-color: rgb(195, 189, 189);
 }
+.bg-success {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  color: black;
+  background-color: #ddffdd;
+  border-left: 6px solid #04aa6d;
+}
