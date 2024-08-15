@@ -67,7 +67,21 @@ const fromLocalStorage = () => {
 //todo delete todo from list using dlt button
 const deleteTodo = (e) => {
   const selectedTodo = e.target.parentElement.parentElement.parentElement;
-  let tt = todoList.removeChild(selectedTodo);
-  console.log(tt);
+  console.log(selectedTodo);
+  todoList.removeChild(selectedTodo);
   showMessage("Deleted Successfully", "danger");
+
+  //   delete selected item from local storage
+  let getTodo = fromLocalStorage();
+  let othersTodo = getTodo.filter((todo) => todo.unqId !== selectedTodo.id);
+  localStorage.setItem("myTodos", JSON.stringify(othersTodo));
 };
+
+//todo show save data in app from local storage
+window.addEventListener(
+  "DOMContentLoaded",
+  (showTodo = () => {
+    let allTodos = fromLocalStorage();
+    allTodos.map((todo) => createTodo(todo.inputValue, todo.unqId));
+  })
+);
